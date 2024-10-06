@@ -10,33 +10,26 @@ import java.util.stream.*;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
-
-
-class Result {
-
-    /*
-     * Complete the 'flippingMatrix' function below.
-     *
-     * The function is expected to return an INTEGER.
-     * The function accepts 2D_INTEGER_ARRAY matrix as parameter.
-     */
-
-    public static int flippingMatrix(List<List<Integer>> matrix) {
-        int n = matrix.size()/2;
-        int sum = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                int max = matrix.get(i).get(j);
-                int a = matrix.get(i).get(2*n-1-j);
-                int b = matrix.get(2*n-1-i).get(2*n-1-j);
-                int c = matrix.get(2*n-1-i).get(j);
-                if (a > max) max = a;
-                if (b > max) max = b;
-                if (c > max) max = c;
-                sum += max;
+class Result
+{
+    public static int flippingMatrix(List<List<Integer>> matrix)
+    {
+        int maxSum = 0;
+        
+        for (int i = 0, n = matrix.size() / 2; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                int topLeft = matrix.get(i).get(j);
+                int topRight = matrix.get(i).get(2 * n - 1 - j);
+                int bottomLeft = matrix.get(2 * n - 1 - i).get(j);
+                int bottomRight = matrix.get(2 * n - 1 - i).get(2 * n - 1 - j);
+                
+                maxSum += Math.max(Math.max(topLeft, topRight), Math.max(bottomLeft, bottomRight));
             }
         }
-        return sum;
+        
+        return maxSum;
     }
 
 }
